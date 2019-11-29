@@ -1,0 +1,588 @@
+/*Para Version WEB*/
+@media screen and (min-width: 601px) {
+  /*Estilo del Cuerpo del HTML*/
+  body {
+    background: #2c2b2b;
+    color: #ffffff;
+    font: 400 13px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    font-weight: bold;
+}
+/*ddsdds*/
+.boton{
+  position: absolute;
+  margin-top: 100px;
+  z-index: 10000;
+  display: none;
+}
+  /*Estilos del Mapa*/
+  .map {
+    border-left: 1px solid #fff;
+    position: absolute;
+    /*left: 33.3333%;*/
+    margin-bottom: 0%;
+    margin-top: 50px;
+    max-width: 100%;
+    top: 0;
+    bottom: 0;
+}
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+.mapboxgl-ctrl-top-right{
+  margin-top: 25px
+}
+
+.texto{
+  color: #000000;
+  font-size: 20px;
+}
+/*Estilo POP MapBox*/
+div.ex1 {
+  margin-left: 10px;
+  max-height: 170px;/*Ver la propiedad maxWidht en archivo mapbox.js donde se crean los popu*/
+  overflow: scroll;
+} /*Pop up diseño*/
+.mapboxgl-popup {
+  padding-bottom:50px;
+}
+.mapboxgl-popup-close-button {
+    display: flex;
+    left: 0px;
+  }
+  .mapboxgl-popup-close-button:hover {
+    display: flex;
+    left: 0px;
+    color: red
+  }
+  .mapboxgl-popup-content {
+    font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+    padding: 0;
+    max-width: 600px;
+    height: auto;
+    background: #ffffff;
+    color: black;
+  }
+  
+  .mapboxgl-popup-content-wrapper {
+    padding: 15%;
+    
+  }
+  
+  .mapboxgl-popup-content h3 {
+    background: #0e5ff7;
+    color: #ffffff;
+    margin: 0;
+    display: block;
+    padding: 10px;
+    border-radius: 3px 3px 0 0;
+    font-weight: 700;
+    margin-top: -15px;
+    text-align: center;
+  }
+  
+  .mapboxgl-popup-content h4 {
+    margin: 0;
+    display: block;
+    padding: 10px;
+    font-weight: 400;
+  }
+  
+  .mapboxgl-popup-content div {
+    padding-bottom: 2px;
+  }
+  
+  .mapboxgl-container .leaflet-marker-icon {
+    cursor: pointer;
+  }
+  
+  .mapboxgl-popup-anchor-top > .mapboxgl-popup-content {
+    margin-top: 6px;
+  }
+  .mapboxgl-popup-tip {
+    width: 14.14px; /* 20/1.414 */
+    height: 14.14px; /* 20/1.414 */
+    transform:rotate(0deg);
+  }
+  
+  /**Estilo Icono*/
+  .marker {
+  border: none;
+  cursor: pointer;
+  height: 24px;
+  width: 24px;
+  background-image: url("../img/marcadorMovil\ \(4\).png");
+  background-color: rgba(0, 0, 0, 0);
+}
+
+/*#menu {
+  background: #fffefe;
+  padding: 10px;
+  font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+  color: rgb(0, 0, 0);
+  z-index: 100;
+  font-weight: bold;
+  }
+      input[type="radio"] {
+    background-color: rgb(7, 151, 207);
+    border-radius: 10px;
+    cursor: pointer;
+    display: inline-block;
+    height: 15px;
+    position: relative;
+    width: 15px;
+    -webkit-appearance: none;
+}
+input[type="radio"]:after {
+    background-color:white;
+    border-radius: 25px;
+    content: '';
+    display: block;
+    height: 7px;
+    left: 4px;
+    position: relative;
+    top: 4px;
+    width: 7px;
+}
+input[type="radio"]:checked:after {
+    background-color: rgb(14, 54, 231);
+}*//*Lo utilizamos para los estilos de mapa*/
+
+  /*Los Items que se crean en el SIDEBAR*/
+  .sidebar {
+    margin-top: 50px;
+    display: none;
+    position: absolute;
+    max-width: 25%;
+    height:90%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    border-right: 1px solid rgba(0, 0, 0, 0.25);
+  }
+  .heading {
+    text-align: center;
+  }
+  .listings {
+    height: 70%;
+    overflow:auto;
+  }
+ 
+  .listings .item {
+    display: block;
+    border-bottom: 1px solid rgb(253, 254, 255);
+    padding: 10px;
+    text-decoration: none;
+  }
+
+  .listings .item:last-child { border-bottom: none; }
+  
+  .listings .item .title {
+    display: block;
+    color: #dd6f14;
+    font-weight: 700;
+  }
+  
+  .listings .item .title small { font-weight: 400; }
+  
+  .listings .item.active .title,
+  .listings .item .title:hover { color: #ffffff; }
+  
+  .listings .item.active {
+    background-color: #0b88fc;
+  }
+
+  .pad2 {
+    padding: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+  /*El Scroll así como su diseño y estilo*/
+  ::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  border-left: 0;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00a2ff;
+  border-radius: 50px;
+}
+
+.clearfix { display: block; }
+
+.clearfix::after {
+  content: '.';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+/*Imagen Logo Navbar**/
+.imagen{ 
+height: 5%;
+width: 5%;
+}
+.rutas{
+  position:absolute;background: rgba(0,0,0,0);margin-top: 135px;
+}
+
+.dropdown>.dropdown-menu {
+  top: 200%;
+  transition: 0.3s all ease-in-out;
+}
+.dropdown:hover>.dropdown-menu {
+  display: block;
+  top: 100%;
+}
+
+.dropdown>.dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+    pointer-events: none;
+}
+
+.dropdown-item{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.dropdown-item:hover{
+  background: #0e5ff7;
+  color: #ffffff;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 25px;
+}
+
+.textoaulas{
+  font-size: 10px;
+}
+.ui-button {
+  background: #3887BE;
+  color: #FFF;
+  display: block;
+  position: absolute;
+  top: 38%;
+  left: 100%;
+  max-width: 50px;
+  height: 35px;
+  margin: -20px 0 0 -80px;
+  z-index: 100;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
+  z-index: 100;
+}
+
+.ui-button:hover {
+  background: #3074a4;
+  color: #fff;
+}
+#audio{
+  display: none
+  }
+  .accordion.accordion-3 {
+    border-radius: 3px; }
+    .accordion.accordion-3 p {
+    font-size: 1rem; }
+    .accordion.accordion-3 .fa.fa-angle-down {
+    margin-top: -10px; }
+    
+    .accordion .animated-icon1 span {
+    background: #F44336;
+    }
+    
+    .fa-caret-down{
+      /*margin-left:10px;*/
+      font-size: 20px;
+      color: white;
+    }
+}
+/*Para Versión Móvil*/
+@media screen and (max-width: 600px) {
+    /*Estilo del Cuerpo del HTML*/
+    body {
+      background: #2c2b2b;
+      color: #ffffff;
+      font: 400 13px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      font-weight: bold;
+  }
+    /*Estilos del Mapa*/
+    .map {
+      border-left: 1px solid #fff;
+      position: absolute;
+      /*left: 33.3333%;*/
+      margin-bottom: 0%;
+      margin-top: 50px;
+      max-width: 100%;
+      top: 0;
+      bottom: 0;
+  }
+  #map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+  }
+  .mapboxgl-ctrl-top-right{
+    margin-top: 25px
+  }  
+  .texto{
+    color: #000000;
+    font-size: 12px;
+  }
+  /*Estilo POP MapBox*/
+  div.ex1 {
+    margin-left: 10px;
+  
+    max-height: 170px;
+    overflow: scroll;
+  } /*Pop up diseño*/
+  .mapboxgl-popup {
+    padding-bottom:50px;
+  }
+  .mapboxgl-popup-close-button {
+      display: flex;
+      left: 0px;
+    }
+    .mapboxgl-popup-close-button:hover {
+      display: flex;
+      left: 0px;
+      color: red
+    }
+    .mapboxgl-popup-content {
+      font: 400 8px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+      padding: 0;
+      max-width: 400px;
+      height: auto;
+      background: #ffffff;
+      color: black;
+    }
+    
+    .mapboxgl-popup-content-wrapper {
+      padding: 15%;
+      
+    }
+    
+    .mapboxgl-popup-content h3 {
+      background: #0e5ff7;
+      color: #ffffff;
+      margin: 0;
+      display: block;
+      padding: 10px;
+      border-radius: 3px 3px 0 0;
+      font-weight: 700;
+      margin-top: -15px;
+      text-align: center;
+    }
+    
+    .mapboxgl-popup-content h4 {
+      margin: 0;
+      display: block;
+      padding: 10px;
+      font-weight: 400;
+    }
+    
+    .mapboxgl-popup-content div {
+      padding-bottom: 2px;
+    }
+    
+    .mapboxgl-container .leaflet-marker-icon {
+      cursor: pointer;
+    }
+    
+    .mapboxgl-popup-anchor-top > .mapboxgl-popup-content {
+      margin-top: 6px;
+    }
+    .mapboxgl-popup-tip {
+      width: 14.14px; /* 20/1.414 */
+      height: 14.14px; /* 20/1.414 */
+      transform:rotate(0deg);
+    }
+  
+  /*#menu {
+    background: #fffefe;
+    padding: 10px;
+    font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+    color: rgb(0, 0, 0);
+    z-index: 100;
+    font-weight: bold;
+    }
+        input[type="radio"] {
+      background-color: rgb(7, 151, 207);
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-block;
+      height: 15px;
+      position: relative;
+      width: 15px;
+      -webkit-appearance: none;
+  }
+  input[type="radio"]:after {
+      background-color:white;
+      border-radius: 25px;
+      content: '';
+      display: block;
+      height: 7px;
+      left: 4px;
+      position: relative;
+      top: 4px;
+      width: 7px;
+  }
+  input[type="radio"]:checked:after {
+      background-color: rgb(14, 54, 231);
+  }*//*Lo utilizamos para los estilos de mapa*/
+  
+    /*Los Items que se crean en el SIDEBAR*/
+    .sidebar {
+      margin-top: 50px;
+      display: none;
+      position: absolute;
+      max-width: 25%;
+      height:70%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      border-right: 1px solid rgba(0, 0, 0, 0.25);
+    }
+    .heading {
+      text-align: center;
+    }
+    .listings {
+      height: 100%;
+      overflow: auto;
+    }
+   
+    .listings .item {
+      display: block;
+      border-bottom: 1px solid rgb(0, 110, 255);
+      padding: 10px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-size:10px
+    }
+  
+    .listings .item:last-child { border-bottom: none; }
+    
+    .listings .item .title {
+      display: block;
+      color: #dd6f14;
+      font-weight: 700;
+    }
+    
+    .listings .item .title small { font-weight: 400; }
+    
+    .listings .item.active .title,
+    .listings .item .title:hover { color: #ffffff; }
+    
+    .listings .item.active {
+      background-color: #0b88fc;
+    }
+  
+    .pad2 {
+      padding: 20px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+  }
+    /*El Scroll así como su diseño y estilo*/
+    ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    border-left: 0;
+    background: rgba(0, 0, 0, 0.1);
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: none;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #00a2ff;
+    border-radius: 50px;
+  }
+  
+  .clearfix { display: block; }
+  
+  .clearfix::after {
+    content: '.';
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+  
+  /*Imagen Logo Navbar**/
+  .imagen{ 
+  height: 15%;
+  width: 15%;
+  }
+  .rutas{
+    position:absolute;background: rgba(0,0,0,0);margin-top: 135px;
+  }
+
+  .textoaulas{
+    font-size: 8px;
+  }
+
+  .ui-button {
+    /*display: none;*/
+    background: #3887BE;
+    color: #FFF;
+    display: block;
+    position: absolute;
+    top: 38%;
+    left: 100%;
+    max-width: 50px;
+    height: 35px;
+    margin: -20px 0 0 -80px;
+    z-index: 100;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 3px;
+    z-index: 100;
+}
+
+.ui-button:hover {
+    background: #3074a4;
+    color: #fff;
+}
+
+#audio{
+  display: none
+  }
+  .accordion.accordion-3 {
+    border-radius: 3px; }
+    .accordion.accordion-3 p {
+    font-size: 1rem; }
+    .accordion.accordion-3 .fa.fa-angle-down {
+    margin-top: -10px; }
+    
+    .accordion .animated-icon1 span {
+    background: #F44336;
+    }
+   .fa-caret-down{
+      /*margin-left:20px;*/
+      font-size: 15px;
+      color: white;
+    }
+    .text1{
+      font-size: 5px;
+    }
+}

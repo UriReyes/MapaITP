@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+    <meta charset='utf-8' />
+    <title>Mapa Interactivo ITP</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <!----------------------------------Librerías de Mapbox---------------------------------------->
+    <script
+        src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.js'></script>
+    <link rel='stylesheet'
+        href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.css'
+        type='text/css' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
+    <!----------------------------------Librerías de Boostrap---------------------------------------->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!----------------------------------Librerías de Fuente Google---------------------------------------->
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet'>
+    <!----------------------------------Librerías de Threejs---------------------------------
+    <script src='https://unpkg.com/three@0.106.2/build/three.min.js'></script>
+    <script src="https://unpkg.com/three@0.106.2/examples/js/loaders/GLTFLoader.js"></script>------->
+    <!----------------------------------Librerías de Ajax/jQuery---------------------------------------->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>-->
+    <!--JS Boostrap-->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/cf312f9d89.js" crossorigin="anonymous"></script>
+    <!--Locales-->
+    <link rel="stylesheet" type="text/css" href="css/estilos.css">
+    <link rel="stylesheet" type="text/css" href="css/estiloinfpop.css">
+    <link rel="stylesheet" type="text/css" href="css/estiloEfectoTexto.css">
+    <link rel="stylesheet" type="text/css" href="css/estilosInformacion.css">
+    <!--<link href="threebox-master/dist/threebox.js" type="text/javascript">
+    <script src="config.js"></script>-->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css' rel='stylesheet' />
+    <!--Efecto Hover-->
+    <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js"></script>
+    <!--Geocoder-->
+    <script
+        src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js'></script>
+    <link rel='stylesheet'
+        href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css'
+        type='text/css' />
+    <!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+</head>
+
+<body>
+    <!---------------------------------------------NavBar--------------------------------------------------------------->
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top" style="background: rgb(44, 43, 43); color: white;">
+        <img src="img/LITP.png" alt="ITP" class="imagen">
+        <!--Codigo de Apoyo para efecto de texto-->
+        <p id="itpmap">ITP Mapa</p>
+        <!--Termina-->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="padding-left: 5%;">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a id="itp" class="nav-link" href="http://www.itpachuca.edu.mx/" target="_blank"><i
+                            style="font-size: 15px; margin-right: 5px;" class="fas fa-graduation-cap"></i>Instituto
+                        Tecnológico de
+                        Pachuca<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
+                        <i style="font-size: 15px; margin-right: 5px;" class="fas fa-map-marked-alt"></i>Areas
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a id="Edificios" class="dropdown-item" href="#"
+                            onclick="AbrirLateralEdificios(); $('.navbar-collapse').collapse('hide'); return false"><i
+                                style="font-size: 15px; margin-right: 5px;" class="fas fa-building"></i>Edificios</a>
+                        <a class="dropdown-item" href="#"
+                            onclick="AbrirLateralDepartamentos(); $('.navbar-collapse').collapse('hide'); return false"><i
+                                style="font-size: 15px; margin-right: 5px;"
+                                class="fas fa-building"></i>Departamentos</a>
+                        <a class="dropdown-item" href="#"
+                            onclick="AbrirLateralLaboratorios(); $('.navbar-collapse').collapse('hide'); return false"><i
+                                style="font-size: 15px; margin-right: 5px;" class="fas fa-building"></i>Laboratorios</a>
+                        <a class="dropdown-item" href="#"
+                            onclick="AbrirLateralDeportivas(); $('.navbar-collapse').collapse('hide'); return false"><i
+                                style="font-size: 15px; margin-right: 5px;" class="fas fa-futbol"></i>Áreas
+                            Deportivas</a>
+                        <a class="dropdown-item" href="#"
+                            onclick="AbrirLateralDidacticos(); $('.navbar-collapse').collapse('hide'); return false"><i
+                                style="font-size: 15px; margin-right: 5px;" class="fas fa-book"></i>Centros
+                            Didácticos</a>
+                        <a class="dropdown-item" href="#"
+                            onclick="AbrirLateralGimnasios(); $('.navbar-collapse').collapse('hide'); return false"><i
+                                style="font-size: 15px; margin-right: 5px;"
+                                class="fas fa-volleyball-ball"></i>Gimnasios</a>
+                        <a class="dropdown-item" href="#"
+                            onclick="AbrirLateralCultural(); $('.navbar-collapse').collapse('hide'); return false"><i
+                                style="font-size: 15px; margin-right: 5px;" class="fas fa-theater-masks"></i>Área
+                            Cultural</a>
+                        <a class="dropdown-item" href="#"
+                            onclick="AbrirLateralEstacionamientos(); $('.navbar-collapse').collapse('hide'); return false"><i
+                                style="font-size: 15px; margin-right: 5px;" class="fas fa-car"></i>Estacionamientos</a>
+                        <a class="dropdown-item" href="#"
+                            onclick="AbrirLateralAlimentos(); $('.navbar-collapse').collapse('hide');return false"><i
+                                style="font-size: 15px; margin-right: 5px;" class="fas fa-utensils"></i>Cafeteria</a>
+                        <div class="dropdown-divider"></div>
+                        <!--  <a class="dropdown-item" href="#">Something else here</a> -->
+                    </div>
+                </li>
+                <!-- <li class="nav-item">
+                    <a id="Organigrama" class="nav-link" style="cursor: pointer;"
+                        onclick="$('.navbar-collapse').collapse('hide');">
+                        Organigrama
+                    </a>
+                </li> -->
+                <li class="nav-item">
+                    <a id="btn-abrir-popup" class="nav-link btn-abrir-popup" style="cursor: pointer;"
+                        onclick="$('.navbar-collapse').collapse('hide');">
+                        <i style="font-size: 15px; margin-right: 5px;" class="fas fa-users"></i>Equipo de Desarrollo
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a id="compartir" class="nav-link ayudabtn" style="cursor: pointer;"
+                        onclick="$('.navbar-collapse').collapse('hide');">
+                        <i style="font-size: 15px; margin-right: 5px;" class="fas fa-question-circle"></i>Ayuda
+                    </a>
+                </li>
+                <!-- <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Estilos
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div id="menu" class="radioboton">
+                            <div>
+                                <input id='streets-v11' type='radio' name='rtoggle' value='streets' checked='checked'>
+                                <label for='streets'>Calles</label>
+                            </div>
+                            <div class="">
+                                <input id='dark-v10' type='radio' name='rtoggle' value='dark'>
+                                <label for='dark'>Oscuro</label><br>
+                            </div>
+                            <div class="">
+                                <input id='satellite-v9' type='radio' name='rtoggle' value='satellite'>
+                                <label for='satellite'>Satelite</label>
+                            </div>
+                        </div>
+                    </div>
+                </li>-->
+            </ul>
+            <div id='geocoder' class='geocoder'></div>
+
+        </div>
+    </nav>
+    <!----------------------------------------------------------------------->
+    <div class="overlay" id="overlay" style="color: black;">
+        <div class="popup" id="popup">
+            <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+            <h3>Equipo de Desarrollo</h3>
+            <h4>Integrantes del Equipo:</h4>
+            <div class="row">
+                <div class="col-md">
+                    <h4 style="font-size: 15px;"><i style="font-size: 25px; margin-right: 5px;"
+                            class="fas fa-smile-beam"></i>Uriel Santiago Reyes Paredes
+                    </h4>
+                    <h4 style="font-size: 15px;"><i style="font-size: 25px; margin-right: 5px;"
+                            class="fas fa-smile-wink"></i>Ángel Gabriel Ponce
+                        Altamirano</h4>
+                    <h4 style="font-size: 15px;"><i style="font-size: 25px; margin-right: 5px;"
+                            class="fas fa-smile-wink"></i>Mariana Alinne Ávila Oropeza
+                    </h4>
+                    <h4 style="font-size: 15px;"><i style="font-size: 25px; margin-right: 5px;"
+                            class="fas fa-smile-wink"></i>Edna Lourdes Estrada Reyes
+                    </h4>
+                </div>
+                <div class="col-md">
+                    <h4 style="font-size: 15px;text-align: justify;"><i style="font-size: 25px; margin-right: 5px;"
+                            class="fas fa-info"></i>Somos estudiantes de la carrera de Ingeniería en Sistemas
+                        Computacionales del Instituto Tecnológico de Pachuca.
+                        <br>
+                        <img class="img12" src="img/LITP.png" width="150px" height="150px" style="margin-left: 90px;">
+                    </h4>
+                </div>
+
+            </div>
+            <h4 style="font-size: 15px;text-align: justify;"><i style="font-size: 25px; margin-right: 5px;"
+                    class="fas fa-info"></i>
+                El desarrollo de este mapa interactivo del Instituto Tecnológico de Pachuca se puso en marcha luego de
+                que como equipo de desarrollo nos diéramos cuenta de que con un proyecto así se podría dar a conocer más
+                a fondo esta Institución educativa, así como proporcionar a futuras generaciones que ingresen a este
+                instituto un mapa donde ubicar las aulas que la conforman. Por otro lado ayudando a los visitantes a
+                siempre saber donde está ubicado dentro de la institución.
+            </h4>
+        </div>
+    </div>
+    </div>
+    <!--------------------------------Informacion de los edificios------------------------------------------------->
+    <div id="informacion" class='sidebar'>
+        <div class="heading">
+            <!--<h2>Edificios</h2>-->
+            <img src="img/Edificios/Gimnasio_Miguel_Hidalgo1.jpeg" class="d-block w-100" alt="">
+            <!--<button type="button" class="btn btn-danger left" onclick="CerrarLaterar();return false;">X</button>-->
+        </div>
+        <div id='listings' class='listings'></div>
+    </div>
+    <div id="rutas">
+    </div>
+    <!----------------------------------MapBox--------------------------------------------------------------------->
+    <div id='map' class="map"></div>
+    <!-- <a href='#' id='geolocate' class='ui-button'>F</a> -->
+    <div class="rutas container-fluid d-flex justify-content-end align-items-center">
+        <div class="py-1" style="background: rgba(255, 255, 255,0.4); margin-right: 40px;">
+            <p
+                style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: 15px;text-align: center; color: black;">
+                <i style="font-size: 25px; margin-right: 5px;" class="fas fa-walking"></i>Rutas</p>
+            <div class="row">
+                <div class="col-6 d-flex justify-content-center align-items-center">
+                    <button id="activar" class="btn btn-success" onclick="abrir_navegacion()"><i
+                            class="fas fa-play"></i></button>
+                </div>
+                <div class="col-6 d-flex justify-content-center align-items-center">
+                    <button id="desactivar" class="btn btn-danger" onclick="cerrar_navegacion()"><i
+                            class="far fa-stop-circle"></i></button>
+                </div>
+            </div>
+            <div>
+                <p style="color: black; text-align: center;">Ayuda
+                    <a class="d-flex justify-content-center align-items-center editbtn" style="cursor: pointer;"><i
+                            class="fas fa-question-circle"></i></a></p>
+            </div>
+        </div>
+    </div>
+    <!--Ayuda GIF-->
+
+    <!--Informacion-->
+    <button id="Lanzar" type="button" class="btn btn-primary boton" data-toggle="modal"
+        data-target="#exampleModalCenter">
+        Lanzar Informacion
+    </button>
+
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header titulo d-flex justify-content-center d-flex align-items-center"
+                    style="background-color: rgb(26, 62, 223);">
+                    <h5 id="Titulo" class="modal-title container-fluid" id="exampleModalLongTitle"
+                        style="text-align: center;">Titulo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body container-fluid d-flex">
+                    <div class="row" style="color: black;">
+                        <div class="col-6" style="border-right-style:groove;"><i
+                                style="font-size: 15px; margin-right: 5px;" class="far fa-images"></i>Imágenes:
+                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img id="img1" class="d-block w-100" src="..." alt="First slide">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img id="img2" class="d-block w-100" src="..." alt="Second slide">
+                                    </div>
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                                    data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                                    data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                            <div><i style="font-size: 10px;margin-right: 5px;margin-top: 5px;"
+                                    class="fas fa-info-circle"></i>Informacion Adicional<br>Para Futuras Versiones..
+                            </div>
+                        </div>
+                        <div class="col-6 textinf"><i style="font-size: 15px;margin-right: 5px;"
+                                class="fas fa-map-marker-alt"></i>Áreas:<br>
+                            <div id="aulas" class="textoaulas"
+                                style="overflow: scroll; height: 80%;font-weight: bold;font-size: 12px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+    <!-- <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#CentroD").click(function (event) {
+                $("div").remove(".listings");
+            });
+            $("#Edificios").click(function (event) {
+                $("div").add(".listings");
+            });
+            $("#boton03").click(function (event) {
+                $(".boton03").remove();
+            });
+            $("#boton04").click(function (event) {
+                $("p").remove(".borrame");
+            });
+        });
+    </script> 
+    <audio id="audio" controls>
+        <source type="audio/wav" src="instrucciones/Audio.wav">
+    </audio>-->
+    <script src="js/mapbox.js"></script>
+    <!--Script Para controlar Eventos en NavBar-->
+    <script src="js/barraLateralEdificios.js">
+    </script>
+
+    <!--Modal Ayuda Ruta-->
+    <div class="modal fade" id="ruta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background: rgb(22, 22, 22);text-align: center;">
+                    <h5 class="modal-title" id="exampleModalLabel"><i style="font-size: 15px; margin-right: 5px;"
+                            class="fas fa-question-circle"></i>Ayuda Rutas MapaITP</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img class="img-fluid" src="img/ayudaMap/Rutas.gif" alt="Ayuda Rutas">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('.editbtn').on('click', function () {
+                $('#ruta').modal('show');
+            });
+        });
+    </script>
+    <!-- Ayuda General -->
+    <div class="modal fade" id="ayudaG" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background: rgb(22, 22, 22);">
+                    <h5 class="modal-title" id="exampleModalLabel" style="margin-left: auto;margin-right: auto;"><i
+                            style="font-size: 15px; margin-right: 5px;" class="fas fa-question-circle"></i>Ayuda MapaITP
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!--Accordion wrapper-->
+                    <div class="accordion md-accordion accordion-3 z-depth-1-half" id="accordionEx194" role="tablist"
+                        aria-multiselectable="true">
+                        <hr class="mb-0">
+                        <!-- Accordion card -->
+                        <div class="card">
+                            <!-- Card header -->
+                            <div class="card-header" role="tab" id="heading4"
+                                style="background: rgb(15, 113, 158); color: white;">
+                                <a data-toggle="collapse" data-parent="#accordionEx194" href="#collapse4"
+                                    aria-expanded="true" aria-controls="collapse4">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <h6 class="mb-0 red-text" style="color: white;">
+                                                ¿Cómo buscar un edificio?
+                                            </h6>
+                                        </div>
+                                        <div class="col-2">
+                                            <i class="fas fa-caret-down"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Card body -->
+                            <div id="collapse4" class="collapse show" role="tabpanel" aria-labelledby="heading4"
+                                data-parent="#accordionEx194">
+                                <div class="card-body p-0">
+                                    <img class="img-fluid" src="img/ayudaMap/Seleccionar_Edificios.gif"
+                                        alt="Ayuda Rutas">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Accordion card -->
+                        <!-- Accordion card -->
+                        <div class="card">
+                            <!-- Card header -->
+                            <div class="card-header" role="tab" id="heading5"
+                                style="background: rgb(15, 113, 158); color: white;">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx194"
+                                    href="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <h6 class="mb-0 red-text" style="color: white;">
+                                                ¿Cómo localizar un área específica?
+                                            </h6>
+                                        </div>
+                                        <div class="col-2">
+                                            <i class="fas fa-caret-down"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Card body -->
+                            <div id="collapse5" class="collapse" role="tabpanel" aria-labelledby="heading5"
+                                data-parent="#accordionEx194">
+                                <div class="card-body p-0">
+                                    <img class="img-fluid" src="img/ayudaMap/Areas.gif" alt="Ayuda Rutas">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Accordion card -->
+                        <!-- Accordion card -->
+                        <div class="card">
+                            <!-- Card header -->
+                            <div class="card-header" role="tab" id="heading6"
+                                style="background: rgb(15, 113, 158); color: white;">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx194"
+                                    href="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <h6 class="mb-0 red-text" style="color: white;">
+                                                ¿Cómo vizualizar la información de un edificio?
+                                            </h6>
+                                        </div>
+                                        <div class="col-2">
+                                            <i class="fas fa-caret-down"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Card body -->
+                            <div id="collapse6" class="collapse" role="tabpanel" aria-labelledby="heading6"
+                                data-parent="#accordionEx194">
+                                <div class="card-body p-0">
+                                    <img class="img-fluid" src="img/ayudaMap/Informacio_Edificios.gif"
+                                        alt="Ayuda Rutas">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Accordion card -->
+                        <!-- Accordion card -->
+                        <div class="card">
+                            <!-- Card header -->
+                            <div class="card-header" role="tab" id="heading6"
+                                style="background: rgb(15, 113, 158); color: white;">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx194"
+                                    href="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <h6 class="mb-0 red-text" style="color: white;">
+                                                ¿Cómo trazar rutas?
+                                            </h6>
+                                        </div>
+                                        <div class="col-2">
+                                            <i class="fas fa-caret-down"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Card body -->
+                            <div id="collapse7" class="collapse" role="tabpanel" aria-labelledby="heading6"
+                                data-parent="#accordionEx194">
+                                <div class="card-body p-0">
+                                    <img class="img-fluid" src="img/ayudaMap/Rutas_Navegacion.gif" alt="Ayuda Rutas">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Accordion card -->
+                        <!-- Accordion card -->
+                        <div class="card">
+                            <!-- Card header -->
+                            <div class="card-header" role="tab" id="heading6"
+                                style="background: rgb(15, 113, 158); color: white;">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx194"
+                                    href="#collapse8" aria-expanded="false" aria-controls="collapse8">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <h6 class="mb-0 red-text" style="color: white;">
+                                                ¿Cómo navegar con localización real?
+                                            </h6>
+                                        </div>
+                                        <div class="col-2">
+                                            <i class="fas fa-caret-down"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Card body -->
+                            <div id="collapse8" class="collapse" role="tabpanel" aria-labelledby="heading6"
+                                data-parent="#accordionEx194">
+                                <div class="card-body p-0">
+                                    <img class="img-fluid" src="img/ayudaMap/Tiempo_Real.gif" alt="Ayuda Rutas">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Accordion card -->
+                    </div>
+                    <!--/.Accordion wrapper-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('.ayudabtn').on('click', function () {
+                $('#ayudaG').modal('show');
+            });
+        });
+    </script>
+</body>
+
+</html>

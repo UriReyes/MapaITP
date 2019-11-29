@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css?family=Calistoga|Noto+Serif|Playfair+Display&display=swap');
+
+#itpmap{
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Calistoga', cursive;
+    margin-right: 15px;
+    text-align: center;
+}
+
+#itp{
+    color: rgb(255, 255, 255);
+    font-size: 15px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-right: 15px;
+}
+
+#myLink{
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-right: 15px;
+}
+
+#btn-abrir-popup{
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-right: 15px;
+}
+#Organigrama{
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-right: 15px;
+}
+
+#compartir{
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-right: 15px;
+}
+
+
+#itp:hover{
+    border-bottom-style: solid;
+    border-bottom-color: #2269D3;
+    border-top-style: solid;
+    border-top-color: #2269D3;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+}
+
+#myLink:hover{
+    border-bottom-style: solid;
+    border-bottom-color: #2269D3;
+    border-top-style: solid;
+    border-top-color: #2269D3;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+}
+
+#btn-abrir-popup:hover{
+    border-bottom-style: solid;
+    border-bottom-color: #2269D3;
+    border-top-style: solid;
+    border-top-color: #2269D3;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+}
+#Organigrama:hover{
+    border-bottom-style: solid;
+    border-bottom-color: #2269D3;
+    border-top-style: solid;
+    border-top-color: #2269D3;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+}
+
+#compartir:hover{
+    border-bottom-style: solid;
+    border-bottom-color: #2269D3;
+    border-top-style: solid;
+    border-top-color: #2269D3;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+}
+
+#buscar:hover{
+   background-color: rgb(199, 22, 22);
+   color: white;
+   border-style: solid;
+   border-color: rgb(199, 22, 22);
+}
